@@ -1,41 +1,46 @@
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Biblioteca.Models;
 using Microsoft.AspNetCore.Mvc;
 
-[Route("products")]
+[Route("obras")]
 public class ProductController : ControllerBase
 {
     [HttpGet]
     [Route("")]
-    public string Get()
+    public async Task<ActionResult<List<Product>>> Get()
     {
-        return "GET";
+        return new List<Product>();
     }
 
     [HttpGet]
     [Route("{genero}")]
-    public string GetByGenero(string genero)
+    public async Task<ActionResult<Product>> GetByGenero(string genero)
     {
-        return genero;
+        return new Product();
     }
 
     [HttpPost]
     [Route("")]
-    public Product Post([FromBody]Product model)
+    public async Task<ActionResult<List<Product>>> Post([FromBody]Product model)
     {
-        return model;
+        return Ok(model);
     }
 
     [HttpPut]
-    [Route("")]
-    public string Put()
+    [Route("{id:int}")]
+    public async Task<ActionResult<List<Product>>> Put(int id, [FromBody]Product model)
     {
-        return "PUT";
+        if(model.Id == id)
+            return Ok(model);
+
+        return NotFound();
     }
 
     [HttpDelete]
-    [Route("")]
-    public string Delete()
+    [Route("{id:int}")]
+    public async Task<ActionResult<List<Product>>> Delete()
     {
-        return "DELETE";
+        return Ok("Livro deletado com sucesso");
     }
 }

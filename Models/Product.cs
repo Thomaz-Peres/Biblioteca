@@ -5,7 +5,7 @@ namespace Biblioteca.Models
     public class Product
     {
         [Key]
-        public int id { get; set; }
+        public int Id { get; set; }
 
         [Required(ErrorMessage = "Este campo é obrigatório")]
         [MinLength(3, ErrorMessage = "Numero minimo de caracteres necessario 3")]
