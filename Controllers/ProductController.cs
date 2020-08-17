@@ -24,6 +24,9 @@ public class ProductController : ControllerBase
     [Route("")]
     public async Task<ActionResult<List<Product>>> Post([FromBody]Product model)
     {
+        if (!ModelState.IsValid)
+            return BadRequest(ModelState);
+        
         return Ok(model);
     }
 
@@ -31,10 +34,13 @@ public class ProductController : ControllerBase
     [Route("{id:int}")]
     public async Task<ActionResult<List<Product>>> Put(int id, [FromBody]Product model)
     {
-        if(model.Id == id)
-            return Ok(model);
+        if(id != model.Id)
+            return NotFound(new { message = "Categoria nçao encontrada" });
 
-        return NotFound();
+        if (!ModelState.IsValid)
+            return BadRequest(ModelState);
+
+        return Ok();
     }
 
     [HttpDelete]
